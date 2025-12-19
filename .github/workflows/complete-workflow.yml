@@ -1,5 +1,8 @@
 name: Build code, run unit test, run SAST, SCA, DAST security scans
-on: push
+on:
+  push:
+    branches: [ master ]
+
 
 jobs:
   build:
@@ -18,8 +21,7 @@ jobs:
         mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
           -Dsonar.projectKey=devsecops-github-actions-all \
           -Dsonar.organization=dotnetgithubactionsorg \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.branch.name=main
+          -Dsonar.host.url=https://sonarcloud.io
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
